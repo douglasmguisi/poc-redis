@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Check branches
         run: |
-          if [ ${{ github.head_ref }} == *-skip ] && [ ${{ github.base_ref }} == master ]; then
+          if [ ${{ github.head_ref }} =~ ".*-skip" ] && [ ${{ github.base_ref }} == master ]; then
             echo "Não é possível abrir PR de uma branch skip"
             exit 1
           fi
