@@ -1,0 +1,17 @@
+name: Check pull request source branch
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+jobs:
+  check-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branches
+        run: |
+          if [ ${{ github.head_ref }} == *skip ] && [ ${{ github.base_ref }} == "master" ]; then
+            echo "Não é possível abrir PR de uma branch skip"
+            exit 1
+          fi
